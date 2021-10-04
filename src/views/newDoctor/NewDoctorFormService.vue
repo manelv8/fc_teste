@@ -1,0 +1,215 @@
+<template>
+  <div class="d-flex flex-column align-items-start">
+    <h1>Sobre o atendimento</h1>
+    <h2>Detalhes do atendimento</h2>
+    <BackStepButton :previousPage="prevPage"/>
+    
+
+    <form @submit="checkForm"  class="col-12">
+      
+      <div>
+        <div class="mb-3 me-3">
+          <label for="mainSpecialty" class="form-label">Especialidade principal*</label>
+          <select 
+            id="mainSpecialty" 
+            class="form-select" 
+            :class="{'is-invalid':(!mainSpecialtyValid() && mainSpecialtyBlured)}" 
+            @blur="mainSpecialtyBlured = true"  
+            @focus=" mainSpecialtyBlured=false" 
+            v-model='mainSpecialty' 
+            required>
+
+            <option value="" selected>Selecione especialidade</option>
+            <option v-for="especialty in mainSpecialtyList" :key="especialty">{{especialty}}</option>
+        
+          </select>
+          <div class="invalid-feedback">
+          Escolha um especialidade.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label">Informe o preço da consulta*</label>
+          <div class="input-group">
+            <span class="input-group-text">R$</span>
+            <input 
+              id="price" 
+              type="text" 
+              class="form-control" 
+              :class="{'is-invalid':(!priceValid() && priceBlured)}" 
+              @blur="priceBlured = true"  
+              @focus=" priceBlured=false"
+              v-mask="currencyMask" 
+              v-model='price' 
+              required>
+            <div class="invalid-feedback">
+              valor entre R$30,00 e R$350,00
+            </div>
+          </div>
+        </div>
+{{paymentType}}
+{{paymentAditionalInfo}}
+        <div class="form-check">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            value="Em Dinheiro" 
+            @click="checkPayment()" 
+            v-model="paymentType"  >
+          <label class="form-check-label" >
+            Em Dinheiro
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            value="Pix"  
+            @click="checkPayment()" 
+            v-model="paymentType"  >
+          <label class="form-check-label" >
+            Pix
+          </label>
+        </div>
+      
+        <div class="form-check">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            value="Cartão de crédito"  
+            @click="checkPayment()" 
+            v-model="paymentType"  >
+          <label class="form-check-label" >
+            Cartão de crédito
+          </label>
+
+  
+          <div v-show="showAditionalInfo">
+            <span>Parcelamento em:</span>
+
+            <div class="form-check">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                value="1x, sem juros"  
+                @click="checkPaymentAditionalInfo()" 
+                v-model="paymentAditionalInfo"  >
+              <label class="form-check-label" >
+                1x, sem juros
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                value="2x, sem juros"  
+                @click="checkPaymentAditionalInfo()" 
+                v-model="paymentAditionalInfo"  >
+              <label class="form-check-label" >
+                2x, sem juros
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                value="3x, sem juros"  
+                @click="checkPaymentAditionalInfo()" 
+                v-model="paymentAditionalInfo"  >
+              <label class="form-check-label" >
+                3x, sem juros
+              </label>
+            </div>
+
+          </div>
+
+          
+        </div>
+
+        
+      
+    </div>
+      
+      <p>progress bar 1 de 2 </p>
+      <NextStepButton :text="'Próximo'"/>
+
+    </form>
+  </div>
+</template>
+
+<script>
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import BackStepButton from '../../components/BackStepButton.vue'
+import NextStepButton from '../../components/NextStepButton.vue'
+export default {
+ name:'NewDoctorFormService',
+ data(){
+   return{
+     prevPage: 'NewDoctorFormInfo',
+     nextPage: 'NewDoctorFormReview',
+     mainSpecialtyList:[
+       'Cardiologia', 
+       'Dermatologia', 
+       'Neurologia', 
+       'Oftalmologia', 
+       'Psiquiatria', 
+       'Urologia'],
+     mainSpecialty:'',
+     mainSpecialtyBlured:false,
+     price:'',
+     priceBlured: false,
+     paymentType:[],
+     paymentAditionalInfo:[],
+     showAditionalInfo:false,
+     currencyMask: createNumberMask({
+      prefix: '',
+      allowDecimal: true,
+      decimalSymbol: ',',
+      integerLimit: 3,
+      decimalLimit:2,
+      includeThousandsSeparator: false,
+      allowNegative: false,
+    })
+
+   }
+ },
+ components: {
+   BackStepButton,
+   NextStepButton
+ },
+ methods:{
+   checkForm: function(){
+
+   },
+   mainSpecialtyValid: function(){
+
+   },
+   priceValid: function(){
+     const priceOnlyNumbers = this.price.replace(/[^\d]/g,'')
+     if(priceOnlyNumbers >= 3000 && priceOnlyNumbers <= 35000){
+       return true
+     }
+     return false
+   },
+   checkPayment: function(){
+    this.paymentType = []
+   },
+   checkPaymentAditionalInfo: function(){
+     this.paymentAditionalInfo = []
+   }
+ },
+ watch:{
+   paymentType(data){
+     if(data == 'Cartão de crédito'){
+       this.showAditionalInfo = true
+     }else{
+       this.showAditionalInfo = false
+       this.paymentAditionalInfo = []
+     }
+   }
+ }
+}
+</script>
