@@ -47,8 +47,9 @@
             </div>
           </div>
         </div>
-{{paymentType}}
-{{paymentAditionalInfo}}
+{{paymentType}} <br>
+{{paymentAditionalInfo}} <br>
+{{paymentType[0]}}
         <div class="form-check">
           <input 
             class="form-check-input" 
@@ -181,11 +182,23 @@ export default {
    NextStepButton
  },
  methods:{
-   checkForm: function(){
+   checkForm: function(e){
+     e.preventDefault();
+     if(!this.mainSpecialtyValid()){
+       return;
+     }
 
+     if(!this.priceValid()){
+       return;
+     }
+
+    if(!this.paymentValid()){
+      return;
+    }
+      this.$router.push({name: this.nextPage})
    },
    mainSpecialtyValid: function(){
-
+    return this.mainSpecialty != ''
    },
    priceValid: function(){
      const priceOnlyNumbers = this.price.replace(/[^\d]/g,'')
@@ -194,13 +207,28 @@ export default {
      }
      return false
    },
+   paymentValid: function(){
+     
+     if(this.paymentType.length == 0 ){
+       console.log('1 invaldio')
+       return false;
+     }else{
+       if (this.paymentType[0] == "Cartão de crédito" && this.paymentAditionalInfo.length == 0){
+         return false
+       }
+     }
+    return true;
+   },
+
    checkPayment: function(){
     this.paymentType = []
    },
+
    checkPaymentAditionalInfo: function(){
      this.paymentAditionalInfo = []
    }
  },
+
  watch:{
    paymentType(data){
      if(data == 'Cartão de crédito'){
