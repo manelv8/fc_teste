@@ -145,8 +145,44 @@
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import BackStepButton from '../../components/BackStepButton.vue'
 import NextStepButton from '../../components/NextStepButton.vue'
+import {mapState} from 'vuex'
 export default {
  name:'NewDoctorFormService',
+ computed:{
+   mainSpecialty:{
+     get(){
+       return this.$store.state.mainSpecialty
+     },
+     set(value){
+      this.$store.commit('addMainSpecialty', value)
+     }
+   },
+   price:{
+     get(){
+       return this.$store.state.price
+     },
+     set(value){
+       this.$store.commit('addPrice',value)
+     }
+   },
+  paymentType:{
+    get(){
+      return this.$store.state.paymentType
+    },
+    set(value){
+      this.$store.commit('addPaymentType',value)
+    }
+  },
+  paymentAditionalInfo:{
+    get(){
+      return this.$store.state.paymentAditionalInfo
+    },
+    set(value){
+      this.$store.commit('addPaymentAditionalInfo',value)
+    }
+  },
+
+ },
  data(){
    return{
      prevPage: 'NewDoctorFormInfo',
@@ -158,12 +194,8 @@ export default {
        'Oftalmologia', 
        'Psiquiatria', 
        'Urologia'],
-     mainSpecialty:'',
      mainSpecialtyBlured:false,
-     price:'',
      priceBlured: false,
-     paymentType:[],
-     paymentAditionalInfo:[],
      showAditionalInfo:false,
      currencyMask: createNumberMask({
       prefix: '',
@@ -228,7 +260,6 @@ export default {
      this.paymentAditionalInfo = []
    }
  },
-
  watch:{
    paymentType(data){
      if(data == 'Cartão de crédito'){

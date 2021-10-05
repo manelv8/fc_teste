@@ -12,9 +12,8 @@
           class="form-control" 
           :class="{'is-invalid':(!fullNameValid() && fullNameBlured)}" 
           @blur="fullNameBlured = true"  
-          @focus=" fullNameBlured=false" 
-        
-          v-model='fullName' 
+          @focus="fullNameBlured=false" 
+          v-model="fullName"
           required>
         <div class="invalid-feedback">
          Digite seu nome completo
@@ -65,12 +64,15 @@
             :class="{'is-invalid':(!stateValid() && stateBlured)}" 
             @blur="stateBlured = true"  
             @focus=" stateBlured=false" 
-            v-model='state' 
+            v-model="state"
             required>
             <option value="" selected>Selecione</option>
-            <option value="Paraná">Paraná</option>
-            <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-            <option value="Santa Catarina">Santa Catarina</option>
+            <option v-for="(state,index) in stateOptions" 
+              :key="index"
+              :value="state"
+            > 
+              {{state}}
+              </option>
           </select>
           <div class="invalid-feedback">
           Escolha um estado
@@ -109,22 +111,64 @@
   
 <script>
   import NextStepButton from '../../components/NextStepButton.vue'
+  import {mapState} from 'vuex'
+
   export default {
   name:'NewDoctorFormInfo',
+  computed:{
+    fullName:{
+      get(){
+        return this.$store.state.fullName
+      },
+      set(value){
+        this.$store.commit('addFullName', value)
+      }
+    },
+
+    cpf:{
+      get(){
+        return this.$store.state.cpf
+      },
+      set(value){
+        this.$store.commit('addCPF', value)
+      }
+    },
+    phone:{
+      get(){
+        return this.$store.state.phone
+      },
+      set(value){
+        this.$store.commit('addPhone', value)
+      }
+    },
+    state:{
+      get(){
+        return this.$store.state.state
+      },
+      set(value){
+        this.$store.commit('addState', value)
+      }
+    },
+    city:{
+      get(){
+        return this.$store.state.city
+      },
+      set(value){
+        this.$store.commit('addCity', value)
+      }
+    },
+
+  },
   data(){
     return{
       nextPage: 'NewDoctorFormService',
       validForm:false,
-      fullName:'',
       fullNameBlured: false,
-      cpf:null,
       cpfBlured: false,
-      phone:null,
       phoneBlured: false,
-      state:"",
       stateBlured: false,
-      city: "",
       cityBlured: false,
+      stateOptions:['Paraná','Rio Grande do Sul','Santa Catarina'],
       cityOptions:{
         'Paraná':[
           {text: 'Londrina', value:'Londrina'},
@@ -168,7 +212,7 @@
       if(!this.cityValid()){
         return;
       }
-
+      
       this.$router.push({name: this.nextPage})
       
     },
