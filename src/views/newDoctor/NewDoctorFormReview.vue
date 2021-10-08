@@ -1,24 +1,89 @@
 <template>
-  <div>
+  <DefaultContainer>
+      <template v-slot:nav>
+        <BackStepButton :previousPage="prevPage"/>
+      </template>
 
-    <h1>professional review</h1>
-    <BackStepButton :previousPage="prevPage"/>
+      <div class="d-flex flex-column align-items-start">
 
-    
+    <h1>Revisão do cadastro</h1>
+    <form class="col-12" @submit="checkForm">
+      <TextItem label='Nome Completo' :text="fullName"/>
+      <TextItem label='CPF' :text='cpf'/>
+      <TextItem label='Número de celular ou telefone' :text='phone'/>
+      <TextItem label='Estado / Cidade' :text="stateAndCity "/>
+      <TextItem label='Especialidade principal' :text='mainSpecialty'/>
+      <TextItem label='Preço da consulta' :text="priceFormatted"/>
+      <TextItem label='Formas de pagamento da consulta' :text="paymentDescription"/>
+      
+      <div class="d-flex flex-column align-items-center " >
+        <NextStepButton :isNext="false" :text="'Cadastrar Profissional'" class="mb-3"/>
+        <BackStepButton :title=" 'Editar Cadastro' " :previousPage="initialPage"/>
+      </div>
+    </form>
   </div>
+  </DefaultContainer>
+
+  
 </template>
 
 <script>
+
 import BackStepButton from '../../components/BackStepButton.vue'
+import NextStepButton from '../../components/NextStepButton.vue'
+import DefaultContainer from '../../components/DefaultContainer.vue'
+import TextItem from '../../components/review/TextItem.vue'
+import { mapState } from 'vuex'
+
 export default {
  name:'NewDoctorFormReview',
  data(){
    return{
-     prevPage: 'NewDoctorFormService'
+     prevPage: 'NewDoctorFormService',
+     initialPage: 'NewDoctorFormInfo',
+     nextPage: 'NewDoctorSuccess'
    }
  },
  components: {
-   BackStepButton
+   BackStepButton,
+   NextStepButton,
+   TextItem,
+   DefaultContainer 
+ },
+ methods:{
+   checkForm: function(e){
+      this.$router.push({name: this.nextPage})
+    },
+ },
+ computed: {
+   ...mapState([
+   'fullName',
+   'cpf',
+    'phone',
+    'state',
+    'city',
+    'mainSpecialty',
+    'price',
+    'paymentType',
+    'paymentAditionalInfo',
+  ]),
+  stateAndCity(){
+      return `${this.state} - ${this.city} `
+  },
+  priceFormatted(){
+    return `R$ ${this.price}`
+  },
+  paymentDescription(){
+    if(this.paymentAditionalInfo[0]){
+      return `${this.paymentType[0]} - ${this.paymentAditionalInfo[0]}`
+    }
+    return `${this.paymentType[0]}`
+  }
+
  }
 }
+
+
+
 </script>
+

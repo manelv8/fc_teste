@@ -1,4 +1,6 @@
 <template>
+<DefaultContainer>
+  <template v-slot:nav></template>
   <div class="d-flex flex-column align-items-start">
     <h1>Sobre o profissional</h1>
     <h2>Dados do profissinal</h2>
@@ -55,8 +57,8 @@
         </div>
       </div>
 
-      <div class="d-flex">
-        <div class="mb-3 me-3">
+      <div class="d-flex justify-content-evenly " >
+        <div class="mb-3 ">
           <label for="state" class="form-label">Estado*</label>
           <select 
             id="state" 
@@ -79,7 +81,7 @@
           </div>
         </div>
 
-        <div class="mb-3 ms-3">
+        <div class="mb-3 ">
           <label for="city" class="form-label">Cidade*</label>
           <select 
             id="city" 
@@ -100,18 +102,20 @@
       </div>
       
     </div>
-      
-      <p>progress bar 1 de 2 </p>
-      <NextStepButton :text="'Próximo'"/>
-
+      <div class="d-flex flex-column align-items-center" >
+        <p>progress bar 1 de 2 </p>
+        <NextStepButton :isNext="true" :text="'Próximo'"/>
+      </div>
     </form>
   </div>
+</DefaultContainer>
+  
     
 </template>
   
 <script>
   import NextStepButton from '../../components/NextStepButton.vue'
-  import {mapState} from 'vuex'
+  import DefaultContainer from '../../components/DefaultContainer.vue'
 
   export default {
   name:'NewDoctorFormInfo',
@@ -187,7 +191,8 @@
     }
   },
   components:{
-    NextStepButton
+    NextStepButton,
+    DefaultContainer
   },
   methods:{
     checkForm: function(e){

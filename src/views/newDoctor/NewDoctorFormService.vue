@@ -1,8 +1,12 @@
 <template>
-  <div class="d-flex flex-column align-items-start">
+  <DefaultContainer>
+    <template v-slot:nav>
+      <BackStepButton :previousPage="prevPage"/>
+    </template>
+    <div class="d-flex flex-column align-items-start">
     <h1>Sobre o atendimento</h1>
     <h2>Detalhes do atendimento</h2>
-    <BackStepButton :previousPage="prevPage"/>
+    
     
 
     <form @submit="checkForm"  class="col-12">
@@ -47,9 +51,7 @@
             </div>
           </div>
         </div>
-{{paymentType}} <br>
-{{paymentAditionalInfo}} <br>
-{{paymentType[0]}}
+
         <div class="form-check">
           <input 
             class="form-check-input" 
@@ -135,17 +137,20 @@
     </div>
       
       <p>progress bar 1 de 2 </p>
-      <NextStepButton :text="'Próximo'"/>
+      <NextStepButton :isNext="true" :text="'Próximo'"/>
 
     </form>
   </div>
+  </DefaultContainer>
+  
 </template>
 
 <script>
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import BackStepButton from '../../components/BackStepButton.vue'
 import NextStepButton from '../../components/NextStepButton.vue'
-import {mapState} from 'vuex'
+import DefaultContainer from '../../components/DefaultContainer.vue'
+
 export default {
  name:'NewDoctorFormService',
  computed:{
@@ -210,8 +215,9 @@ export default {
    }
  },
  components: {
-   BackStepButton,
-   NextStepButton
+  BackStepButton,
+  NextStepButton,
+  DefaultContainer
  },
  methods:{
    checkForm: function(e){
