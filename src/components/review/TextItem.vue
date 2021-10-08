@@ -1,6 +1,6 @@
 <template>
   <div class="mb-1">
-      <span >{{label}}</span>
+      <span class="fw-bold">{{label}}</span>
       <p 
         id="price" 
         type="text" 
