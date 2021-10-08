@@ -1,5 +1,5 @@
 <template>
-  <button type='submit'> {{text}} </button>
+  <button class="" type='submit'> {{text}} </button>
 </template>
 
 
@@ -12,3 +12,7 @@ export default {
  
 }
 </script>
+
+<style scoped>
+  
+</style>

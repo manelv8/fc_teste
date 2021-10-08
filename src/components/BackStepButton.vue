@@ -1,5 +1,5 @@
 <template>
-  <button @click="goToPage"> back </button>
+  <button @click="goToPage"> {{title}}</button>
 </template>
 
 
@@ -7,7 +7,11 @@
 export default {
   name: 'BackStepButton',
   props:{
-    previousPage: String
+    previousPage: String,
+    title:{
+      type:String,
+      default: 'Back'
+    }
   },
   methods:{
     goToPage(){
