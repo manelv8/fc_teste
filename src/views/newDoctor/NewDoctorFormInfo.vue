@@ -1,112 +1,119 @@
 <template>
 <DefaultContainer>
   <template v-slot:nav></template>
-  <div class="d-flex flex-column align-items-start">
-    <h1>Sobre o profissional</h1>
-    <h2>Dados do profissinal</h2>
+  
+  <div class="row">
+    <div class="col d-flex flex-column align-items-start">
+      <h1 class="mb-5">Sobre o profissional</h1>
+      <h4 class="mb-5">Dados do profissional</h4>
 
-    <form @submit="checkForm"  class="col-12">
-      <div class="mb-3">
-        <label for="name" class="form-label">Nome Completo*</label>
-        <input 
-          id="name" 
-          type="text" 
-          class="form-control" 
-          :class="{'is-invalid':(!fullNameValid() && fullNameBlured)}" 
-          @blur="fullNameBlured = true"  
-          @focus="fullNameBlured=false" 
-          v-model="fullName"
-          required>
-        <div class="invalid-feedback">
-         Digite seu nome completo
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <label for="cpf" class="form-label">CPF*</label>
-        <input 
-          id="cpf" 
-          type="text" 
-          class="form-control" 
-          :class="{'is-invalid':(!cpfValid() && cpfBlured)}" 
-          @blur="cpfBlured = true"  
-          @focus=" cpfBlured=false" 
-          placeholder="Digite um CPF"
-          v-mask="'###.###.###-##'"
-          v-model='cpf' 
-          required>
-        <div class="invalid-feedback">
-         CPF invalido.
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <label for="phone" class="form-label">Número de celular*</label>
-        <input 
-          id="phone" 
-          type="text" 
-          class="form-control" 
-          :class="{'is-invalid':(!phoneValid() && phoneBlured)}" 
-          @blur="phoneBlured = true"  
-          @focus=" phoneBlured=false"
-          v-mask="'(##)# ####-####'" 
-          v-model='phone' 
-          required>
-        <div class="invalid-feedback">
-         Telefone inválido
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-evenly " >
-        <div class="mb-3 ">
-          <label for="state" class="form-label">Estado*</label>
-          <select 
-            id="state" 
-            class="form-select" 
-            :class="{'is-invalid':(!stateValid() && stateBlured)}" 
-            @blur="stateBlured = true"  
-            @focus=" stateBlured=false" 
-            v-model="state"
+      <form @submit="checkForm"  class="col-12">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome Completo*</label>
+          <input 
+            id="name" 
+            type="text" 
+            class="form-control" 
+            :class="{'is-invalid':(!fullNameValid() && fullNameBlured)}" 
+            @blur="fullNameBlured = true"  
+            @focus="fullNameBlured=false" 
+            v-model="fullName"
             required>
-            <option value="" selected>Selecione</option>
-            <option v-for="(state,index) in stateOptions" 
-              :key="index"
-              :value="state"
-            > 
-              {{state}}
+          <div class="invalid-feedback">
+          Digite seu nome completo
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="cpf" class="form-label">CPF*</label>
+          <input 
+            id="cpf" 
+            type="text" 
+            class="form-control" 
+            :class="{'is-invalid':(!cpfValid() && cpfBlured)}" 
+            @blur="cpfBlured = true"  
+            @focus=" cpfBlured=false" 
+            placeholder="Digite um CPF"
+            v-mask="'###.###.###-##'"
+            v-model='cpf' 
+            required>
+          <div class="invalid-feedback">
+          CPF invalido.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">Número de celular*</label>
+          <input 
+            id="phone" 
+            type="text" 
+            class="form-control" 
+            :class="{'is-invalid':(!phoneValid() && phoneBlured)}" 
+            @blur="phoneBlured = true"  
+            @focus=" phoneBlured=false"
+            v-mask="'(##)# ####-####'" 
+            v-model='phone' 
+            required>
+          <div class="invalid-feedback">
+          Telefone inválido
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-evenly " >
+          <div class="mb-3 ">
+            <label for="state" class="form-label">Estado*</label>
+            <select 
+              id="state" 
+              class="form-select" 
+              :class="{'is-invalid':(!stateValid() && stateBlured)}" 
+              @blur="stateBlured = true"  
+              @focus=" stateBlured=false" 
+              v-model="state"
+              required>
+              <option value="" selected>Selecione</option>
+              <option v-for="(state,index) in stateOptions" 
+                :key="index"
+                :value="state"
+              > 
+                {{state}}
+                </option>
+            </select>
+            <div class="invalid-feedback">
+            Escolha um estado
+            </div>
+          </div>
+
+          <div class="mb-3 ">
+            <label for="city" class="form-label">Cidade*</label>
+            <select 
+              id="city" 
+              class="form-select" 
+              :class="{'is-invalid':(!cityValid() && cityBlured)}" 
+              @blur="cityBlured = true"  
+              @focus=" cityBlured=false" 
+              v-model='city' 
+              required>
+              <option value="" selected>Selecione</option>
+              <option v-for="city in cityOptions[state]" :key="city.text" :value="city.value">
+                {{city.text}}
               </option>
-          </select>
-          <div class="invalid-feedback">
-          Escolha um estado
-          </div>
+            </select>
+            <div class="invalid-feedback">
+              Escolha uma cidade.
+            </div>
         </div>
+        
+      </div>
 
-        <div class="mb-3 ">
-          <label for="city" class="form-label">Cidade*</label>
-          <select 
-            id="city" 
-            class="form-select" 
-            :class="{'is-invalid':(!cityValid() && cityBlured)}" 
-            @blur="cityBlured = true"  
-            @focus=" cityBlured=false" 
-            v-model='city' 
-            required>
-            <option value="" selected>Selecione</option>
-            <option v-for="city in cityOptions[state]" :key="city.text" :value="city.value">
-              {{city.text}}
-            </option>
-          </select>
-          <div class="invalid-feedback">
-            Escolha uma cidade.
-          </div>
-      </div>
-      
+        <div class="d-flex flex-column align-items-center" >
+          <p>progress bar 1 de 2 </p>
+          <NextStepButton :isNext="true" :text="'Próximo'"/>
+        </div>
+      </form>
     </div>
-      <div class="d-flex flex-column align-items-center" >
-        <p>progress bar 1 de 2 </p>
-        <NextStepButton :isNext="true" :text="'Próximo'"/>
-      </div>
-    </form>
+    <div class="col d-none d-lg-flex align-items-center">
+      <img src="../../assets/desktop-pagina-1.png" alt="">
+    </div>
   </div>
 </DefaultContainer>
   

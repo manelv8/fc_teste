@@ -16,6 +16,7 @@ export default {
 <style scoped>
   .default{
     background-color: yellow;
+    height: 100%;
   }
   .nav{
     min-height: 5rem;
@@ -24,10 +25,18 @@ export default {
   }
   .content{
     background-color: #fff;
-    border-radius: 5% 5% 0 0;
-    padding-top: 2rem ;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    height: 100%;
+    border-radius: 25px ;
+    padding: 2rem 1rem ;
+    
   }
+
+@media screen and  (min-width: 992px) {
+  
+  .content{
+    margin-left: 2rem;
+    margin-right: 2rem;
+    box-shadow: 2px 2px 10px var(--fc-secondary-7);
+  }
+}
+
 </style>

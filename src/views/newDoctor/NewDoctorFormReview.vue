@@ -4,24 +4,31 @@
         <BackStepButton :previousPage="prevPage"/>
       </template>
 
-      <div class="d-flex flex-column align-items-start">
+      <div class="row">
+        <div class="col d-flex flex-column align-items-start">
 
-    <h1>Revisão do cadastro</h1>
-    <form class="col-12" @submit="checkForm">
-      <TextItem label='Nome Completo' :text="fullName"/>
-      <TextItem label='CPF' :text='cpf'/>
-      <TextItem label='Número de celular ou telefone' :text='phone'/>
-      <TextItem label='Estado / Cidade' :text="stateAndCity "/>
-      <TextItem label='Especialidade principal' :text='mainSpecialty'/>
-      <TextItem label='Preço da consulta' :text="priceFormatted"/>
-      <TextItem label='Formas de pagamento da consulta' :text="paymentDescription"/>
-      
-      <div class="d-flex flex-column align-items-center " >
-        <NextStepButton :isNext="false" :text="'Cadastrar Profissional'" class="mb-3"/>
-        <BackStepButton :title=" 'Editar Cadastro' " :previousPage="initialPage"/>
-      </div>
-    </form>
-  </div>
+          <h1 class="mb-5" >Revisão do cadastro</h1>
+
+          <form class="col-12" @submit="checkForm">
+            <TextItem label='Nome Completo' :text="fullName"/>
+            <TextItem label='CPF' :text='cpf'/>
+            <TextItem label='Número de celular ou telefone' :text='phone'/>
+            <TextItem label='Estado / Cidade' :text="stateAndCity "/>
+            <TextItem label='Especialidade principal' :text='mainSpecialty'/>
+            <TextItem label='Preço da consulta' :text="priceFormatted"/>
+            <TextItem label='Formas de pagamento da consulta' :text="paymentDescription"/>
+            
+            <div class="d-flex flex-column align-items-center " >
+              <NextStepButton :isNext="false" :text="'Cadastrar Profissional'" class="mb-3"/>
+              <BackStepButton :title=" 'Editar Cadastro' " :previousPage="initialPage"/>
+            </div>
+          </form>
+        </div>
+       
+        <div class="col d-none d-lg-flex align-items-center">
+          <img src="../../assets/desktop-pagina-3.png" alt="">
+        </div>
+    </div>
   </DefaultContainer>
 
   
