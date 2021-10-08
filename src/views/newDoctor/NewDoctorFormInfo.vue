@@ -4,8 +4,8 @@
   
   <div class="row">
     <div class="col d-flex flex-column align-items-start">
-      <h1 class="mb-5">Sobre o profissional</h1>
-      <h4 class="mb-5">Dados do profissional</h4>
+      <h2 class="mb-2">Sobre o profissional</h2>
+      <h4 class="mb-2">Dados do profissional</h4>
 
       <form @submit="checkForm"  class="col-12">
         <div class="mb-3">
