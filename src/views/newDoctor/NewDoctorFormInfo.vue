@@ -104,11 +104,8 @@
         </div>
         
       </div>
-
-        <div class="d-flex flex-column align-items-center" >
-          <p>progress bar 1 de 2 </p>
+          <ProgressBar :step="1" :totalSteps="2"/>
           <NextStepButton :isNext="true" :text="'Próximo'"/>
-        </div>
       </form>
     </div>
     <div class="col d-none d-lg-flex align-items-center">
@@ -123,6 +120,7 @@
 <script>
   import NextStepButton from '../../components/NextStepButton.vue'
   import DefaultContainer from '../../components/DefaultContainer.vue'
+  import ProgressBar from '../../components/ProgressBar.vue'
 
   export default {
   name:'NewDoctorFormInfo',
@@ -199,7 +197,8 @@
   },
   components:{
     NextStepButton,
-    DefaultContainer
+    DefaultContainer,
+    ProgressBar
   },
   methods:{
     checkForm: function(e){

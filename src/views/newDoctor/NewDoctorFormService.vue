@@ -130,15 +130,12 @@
                 </div>
 
               </div>
-
               
             </div>
 
-            
-          
         </div>
           
-          <p>progress bar 1 de 2 </p>
+          <ProgressBar :step="2" :totalSteps="2"/>
           <NextStepButton :isNext="true" :text="'Próximo'"/>
 
         </form>
@@ -157,6 +154,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import BackStepButton from '../../components/BackStepButton.vue'
 import NextStepButton from '../../components/NextStepButton.vue'
 import DefaultContainer from '../../components/DefaultContainer.vue'
+import ProgressBar from '../../components/ProgressBar.vue'
 
 export default {
  name:'NewDoctorFormService',
@@ -224,7 +222,8 @@ export default {
  components: {
   BackStepButton,
   NextStepButton,
-  DefaultContainer
+  DefaultContainer,
+  ProgressBar
  },
  methods:{
    checkForm: function(e){
