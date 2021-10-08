@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col d-flex flex-column align-items-start">
 
-          <h1 class="mb-5" >Revisão do cadastro</h1>
+          <h2 class="mb-2" >Revisão do cadastro</h2>
 
           <form class="col-12" @submit="checkForm">
             <TextItem label='Nome Completo' :text="fullName"/>

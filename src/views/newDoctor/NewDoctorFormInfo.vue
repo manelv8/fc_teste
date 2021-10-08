@@ -4,8 +4,8 @@
   
   <div class="row">
     <div class="col d-flex flex-column align-items-start">
-      <h1 class="mb-5">Sobre o profissional</h1>
-      <h4 class="mb-5">Dados do profissional</h4>
+      <h2 class="mb-2">Sobre o profissional</h2>
+      <h4 class="mb-2">Dados do profissional</h4>
 
       <form @submit="checkForm"  class="col-12">
         <div class="mb-3">
@@ -51,7 +51,7 @@
             :class="{'is-invalid':(!phoneValid() && phoneBlured)}" 
             @blur="phoneBlured = true"  
             @focus=" phoneBlured=false"
-            v-mask="'(##)# ####-####'" 
+            v-mask="'(##) # ####-####'" 
             v-model='phone' 
             required>
           <div class="invalid-feedback">
@@ -59,8 +59,8 @@
           </div>
         </div>
 
-        <div class="d-flex justify-content-evenly " >
-          <div class="mb-3 ">
+        <div class="row" >
+          <div class=" col mb-3 ">
             <label for="state" class="form-label">Estado*</label>
             <select 
               id="state" 
@@ -83,7 +83,7 @@
             </div>
           </div>
 
-          <div class="mb-3 ">
+          <div class="col mb-3 ">
             <label for="city" class="form-label">Cidade*</label>
             <select 
               id="city" 

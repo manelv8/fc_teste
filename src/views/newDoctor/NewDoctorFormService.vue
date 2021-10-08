@@ -6,14 +6,12 @@
     <div class="row">
    
       <div class="col d-flex flex-column align-items-start">
-        <h1 class="mb-5" >Sobre o atendimento</h1>
-        <h4 class="mb-5" >Detalhes do atendimento</h4>
-        
-        
-
+        <h2 class="mb-2" >Sobre o atendimento</h2>
+        <h4 class="mb-2" >Detalhes do atendimento</h4>
+  
         <form @submit="checkForm"  class="col-12">
           
-          <div>
+          <div class="mb-3">
             <div class="mb-3 me-3">
               <label for="mainSpecialty" class="form-label">Especialidade principal*</label>
               <select 
@@ -132,8 +130,7 @@
               </div>
               
             </div>
-
-        </div>
+          </div>
           
           <ProgressBar :step="2" :totalSteps="2"/>
           <NextStepButton :isNext="true" :text="'Próximo'"/>

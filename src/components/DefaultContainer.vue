@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
   .default{
-    background-color: yellow;
+    background-color: var(--fc-cta-1);
     height: 100%;
   }
   .nav{
